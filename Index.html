@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masters Pool 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a3a2a;
+    --gold: #c9a84c;
+    --cream: #f5f0e8;
+    --muted: #8a7a5a;
+    --card: rgba(255,255,255,0.04);
+    --card-lead: rgba(201,168,76,0.07);
+    --border: rgba(201,168,76,0.15);
+    --border-lead: rgba(201,168,76,0.55);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--green); color:var(--cream); font-family:'IBM Plex Mono',monospace; min-height:100vh; background-image:radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.05) 0%, transparent 60%); }
+
+header { text-align:center; padding:2rem 1rem 1.5rem; border-bottom:1px solid rgba(201,168,76,0.3); }
+.title { font-family:‘Playfair Display’,serif; font-size:clamp(1.8rem,6vw,3rem); font-weight:900; color:var(–gold); letter-spacing:0.05em; }
+.subtitle { font-size:0.7rem; letter-spacing:0.3em; color:var(–muted); margin-top:0.3rem; text-transform:uppercase; }
+.badge { display:inline-flex; align-items:center; gap:0.4rem; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.2); padding:0.25rem 0.8rem; margin-top:0.6rem; font-size:0.65rem; color:var(–gold); letter-spacing:0.1em; }
+
+main { max-width:900px; margin:0 auto; padding:2rem 1rem; }
+
+.section-label { font-size:0.65rem; letter-spacing:0.3em; color:var(–gold); text-transform:uppercase; margin-bottom:1rem; display:flex; align-items:center; gap:0.75rem; }
+.section-label::after { content:’’; flex:1; height:1px; background:rgba(201,168,76,0.2); }
+
+/* Team cards */
+.team-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1rem; margin-bottom:2.5rem; }
+.team-card { background:var(–card); border:1px solid var(–border); padding:1.25rem; position:relative; }
+.team-card.lead { background:var(–card-lead); border-color:var(–border-lead); }
+.team-badge { position:absolute; top:-1px; right:-1px; background:rgba(201,168,76,0.2); color:var(–gold); font-size:0.6rem; font-weight:600; padding:0.2rem 0.6rem; letter-spacing:0.1em; }
+.team-card.lead .team-badge { background:var(–gold); color:var(–green); }
+.team-name { font-family:‘Playfair Display’,serif; font-size:1.3rem; color:var(–cream); margin-bottom:0.75rem; }
+.score-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem; }
+.score-label { font-size:0.6rem; letter-spacing:0.1em; color:var(–muted); text-transform:uppercase; }
+.score-big { font-size:1.3rem; font-weight:700; color:var(–gold); }
+.score-big.green { color:#7dd87d; }
+.score-rank { font-size:0.65rem; color:var(–muted); margin-left:4px; }
+.divider { height:1px; background:rgba(201,168,76,0.1); margin:0.75rem 0; }
+.player-line { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.35rem; font-size:0.7rem; }
+.player-name { color:var(–cream); }
+.player-stats { display:flex; gap:0.5rem; font-size:0.65rem; }
+.bird { color:#7dd87d; }
+
+/* Player rows */
+.player-rows { display:flex; flex-direction:column; gap:0.5rem; }
+.player-row { background:rgba(255,255,255,0.04); border:1px solid rgba(201,168,76,0.12); padding:0.75rem 1rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
+.pr-name-block { flex:1 1 140px; }
+.pr-name { font-size:0.8rem; color:var(–cream); margin-bottom:0.2rem; }
+.owner-tag { font-size:0.55rem; padding:0.1rem 0.35rem; border-radius:2px; font-weight:700; }
+.pr-stat { text-align:center; min-width:3.5rem; }
+.pr-stat-label { font-size:0.55rem; color:var(–muted); letter-spacing:0.1em; margin-bottom:0.15rem; }
+.pr-stat-val { font-size:0.9rem; font-weight:700; font-family:‘IBM Plex Mono’,monospace; }
+.pr-stat-sub { font-size:0.6rem; color:var(–muted); }
+.pr-tee { text-align:right; flex:1 1 120px; }
+.pr-tee-label { font-size:0.55rem; color:var(–muted); letter-spacing:0.1em; margin-bottom:0.15rem; }
+.pr-tee-time { font-size:0.8rem; color:var(–gold); font-weight:700; }
+.pr-tee-group { font-size:0.55rem; color:var(–muted); margin-top:0.1rem; }
+
+.under { color:#7dd87d; }
+.over  { color:#ff8080; }
+.even  { color:var(–cream); }
+
+.summary { margin-top:2rem; padding:1rem; background:rgba(201,168,76,0.05); border:1px solid rgba(201,168,76,0.1); font-size:0.62rem; color:var(–muted); line-height:1.8; }
+.summary-title { color:var(–gold); margin-bottom:0.3rem; letter-spacing:0.1em; }
+
+@media(max-width:480px) { .team-grid { grid-template-columns:1fr; } }
+</style>
+
+</head>
+<body>
+<header>
+  <div class="title">THE MASTERS POOL</div>
+  <div class="subtitle">Augusta National &middot; 2026</div>
+  <div class="badge">Round 1 Final &middot; R2 Friday</div>
+</header>
+
+<main>
+  <div class="section-label">⛳ Team Standings — After Round 1</div>
+  <div class="team-grid" id="teamGrid"></div>
+
+  <div class="section-label">📋 Players &middot; R1 Results &amp; R2 Tee Times (CT)</div>
+  <div class="player-rows" id="playerRows"></div>
+
+  <div class="summary">
+    <div class="summary-title">STANDINGS SUMMARY</div>
+    <div id="summary"></div>
+  </div>
+</main>
+
+<script>
+const PLAYERS = [
+  { name:"Scottie Scheffler",  owner:"Kaleb",  score:"-2", pos:6,  posD:"T6",  birdies:2, tee:"9:19 AM CT",  group:"MacIntyre, Woodland" },
+  { name:"Cameron Young",      owner:"Kaleb",  score:"+1", pos:33, posD:"T33", birdies:3, tee:"12:44 PM CT", group:"McIlroy, Howell" },
+  { name:"Ludvig Aberg",       owner:"Kaleb",  score:"+2", pos:40, posD:"T40", birdies:4, tee:"8:43 AM CT",  group:"Rahm, Gotterup" },
+  { name:"Xander Schauffele",  owner:"Markus", score:"-2", pos:6,  posD:"T6",  birdies:5, tee:"12:20 PM CT", group:"DeChambeau, Fitzpatrick" },
+  { name:"Bryson DeChambeau",  owner:"Markus", score:"+4", pos:56, posD:"T56", birdies:2, tee:"12:20 PM CT", group:"Fitzpatrick, Schauffele" },
+  { name:"Robert MacIntyre",   owner:"Markus", score:"+8", pos:82, posD:"T82", birdies:1, tee:"9:19 AM CT",  group:"Scheffler, Woodland" },
+  { name:"Tommy Fleetwood",    owner:"Jacob",  score:"-1", pos:10, posD:"T10", birdies:5, tee:"12:08 PM CT", group:"Reed, Bhatia" },
+  { name:"Matt Fitzpatrick",   owner:"Jacob",  score:"+2", pos:40, posD:"T40", birdies:2, tee:"12:20 PM CT", group:"DeChambeau, Schauffele" },
+  { name:"Jon Rahm",           owner:"Jacob",  score:"+6", pos:73, posD:"T73", birdies:0, tee:"8:43 AM CT",  group:"Gotterup, Aberg" },
+];
+
+const OWNER_STYLES = {
+  Kaleb:  { bg:"rgba(100,149,237,0.2)", color:"#a0c4ff", border:"rgba(100,149,237,0.4)" },
+  Markus: { bg:"rgba(255,160,80,0.2)",  color:"#ffc080", border:"rgba(255,160,80,0.4)" },
+  Jacob:  { bg:"rgba(130,200,100,0.2)", color:"#a0e070", border:"rgba(130,200,100,0.4)" },
+};
+
+function scoreClass(s) {
+  const n = parseFloat(s);
+  return isNaN(n) ? "even" : n < 0 ? "under" : n > 0 ? "over" : "even";
+}
+
+function buildStandings() {
+  return ["Kaleb","Markus","Jacob"].map(owner => {
+    const players = PLAYERS.filter(p => p.owner === owner);
+    return { owner, players, totalPos: players.reduce((s,p)=>s+p.pos,0), totalBirdies: players.reduce((s,p)=>s+p.birdies,0) };
+  });
+}
+
+function rankBy(teams, key, asc) {
+  const sorted = [...teams].sort((a,b) => asc ? a[key]-b[key] : b[key]-a[key]);
+  const r = {}; sorted.forEach((t,i) => r[t.owner] = i+1); return r;
+}
+
+const teams = buildStandings();
+const posRanks    = rankBy(teams, "totalPos", true);
+const birdieRanks = rankBy(teams, "totalBirdies", false);
+const orderedTeams = [...teams].sort((a,b) => posRanks[a.owner]-posRanks[b.owner]);
+
+// Render team cards
+const grid = document.getElementById("teamGrid");
+orderedTeams.forEach(team => {
+  const pr = posRanks[team.owner], br = birdieRanks[team.owner], lead = pr===1;
+  const card = document.createElement("div");
+  card.className = "team-card" + (lead?" lead":"");
+  card.innerHTML = `
+    <div class="team-badge">${lead?"🏆 LEADING":"#"+pr}</div>
+    <div class="team-name">${team.owner}</div>
+    <div class="score-row">
+      <span class="score-label">Placing Score</span>
+      <span class="score-big">${team.totalPos}<span class="score-rank">#${pr}</span></span>
+    </div>
+    <div class="score-row">
+      <span class="score-label">Birdies or Better</span>
+      <span class="score-big green">${team.totalBirdies}<span class="score-rank">#${br}</span></span>
+    </div>
+    <div class="divider"></div>
+    ${team.players.map(p=>`
+      <div class="player-line">
+        <span class="player-name">${p.name}</span>
+        <div class="player-stats">
+          <span class="bird">🐦 ${p.birdies}</span>
+          <span class="${scoreClass(p.score)}">${p.score} (${p.posD})</span>
+        </div>
+      </div>`).join("")}
+  `;
+  grid.appendChild(card);
+});
+
+// Render player rows sorted by position
+const rows = document.getElementById("playerRows");
+[...PLAYERS].sort((a,b)=>a.pos-b.pos).forEach(p => {
+  const os = OWNER_STYLES[p.owner]||{};
+  const row = document.createElement("div");
+  row.className = "player-row";
+  row.innerHTML = `
+    <div class="pr-name-block">
+      <div class="pr-name">${p.name}</div>
+      <span class="owner-tag" style="background:${os.bg};color:${os.color};border:1px solid ${os.border}">${p.owner}</span>
+    </div>
+    <div class="pr-stat">
+      <div class="pr-stat-label">R1</div>
+      <div class="pr-stat-val ${scoreClass(p.score)}">${p.score}</div>
+      <div class="pr-stat-sub">${p.posD}</div>
+    </div>
+    <div class="pr-stat">
+      <div class="pr-stat-label">BIRDIES+</div>
+      <div class="pr-stat-val" style="color:#7dd87d">🐦 ${p.birdies}</div>
+    </div>
+    <div class="pr-tee">
+      <div class="pr-tee-label">R2 TEE TIME</div>
+      <div class="pr-tee-time">${p.tee}</div>
+      <div class="pr-tee-group">w/ ${p.group}</div>
+    </div>
+  `;
+  rows.appendChild(row);
+});
+
+// Summary
+const placingLeader = orderedTeams[0];
+const birdieLeader = [...teams].sort((a,b)=>b.totalBirdies-a.totalBirdies)[0];
+document.getElementById("summary").innerHTML =
+  `🥇 Placing leader: <span style="color:#c9a84c">${placingLeader.owner}</span> (${placingLeader.totalPos} pts)<br>
+   🐦 Birdie leader: <span style="color:#7dd87d">${birdieLeader.owner}</span> (${birdieLeader.totalBirdies} holes)`;
+</script>
+
+</body>
+</html>
