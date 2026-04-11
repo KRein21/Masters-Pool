@@ -59,7 +59,7 @@
 <header>
   <div class="title">THE MASTERS POOL</div>
   <div class="subtitle">Augusta National &middot; 2026</div>
-  <div class="badge">Through Round 2 &middot; R3 Saturday</div>
+  <div class="badge">Through Round 3 &middot; R4 Sunday</div>
 </header>
 
 <div class="tab-bar">
@@ -69,7 +69,7 @@
 </div>
 
 <div id="tab-standings" class="tab-content active">
-  <div class="section-label">Team Standings — Through Round 2</div>
+  <div class="section-label">Team Standings — Through Round 3</div>
   <div class="team-grid" id="teamGrid"></div>
   <div class="summary-box">
     <div class="summary-title">SUMMARY</div>
@@ -78,7 +78,7 @@
 </div>
 
 <div id="tab-players" class="tab-content">
-  <div class="section-label">All Players — Through Round 2</div>
+  <div class="section-label">All Players — Through Round 3</div>
   <div style="overflow-x:auto">
     <table class="player-table">
       <thead><tr><th>Pos</th><th>Player</th><th>Score</th><th>Birdies+</th><th>Team</th></tr></thead>
@@ -88,23 +88,24 @@
 </div>
 
 <div id="tab-teetimes" class="tab-content">
-  <div class="section-label">Round 3 Tee Times — Saturday (CT)</div>
-  <div class="tee-rows" id="teeTimes"></div>
-  <div style="margin-top:1rem;font-size:0.58rem;color:var(--muted)">⚫ Faded entries missed the cut — positions locked</div>
+  <div class="section-label">Round 4 Tee Times — Sunday (CT)</div>
+  <div class="tee-rows" id="teeTimes">
+    <div style="color:var(--muted);font-size:0.7rem;padding:1rem 0">R4 tee times will be updated once pairings are released.</div>
+  </div>
 </div>
 
 <script>
-// pos = final position used for scoring. Cut players keep their R2 finishing position.
+// Birdies = cumulative R1+R2+R3
 const PLAYERS = [
-  { name:"Scottie Scheffler",  owner:"Kaleb",  score:"E",  pos:24,  posD:"T24", birdies:4,  cut:false, tee:"11:16 AM CT", group:"Ludvig Aberg" },
-  { name:"Cameron Young",      owner:"Kaleb",  score:"-4", pos:7,   posD:"T7",  birdies:9,  cut:false, tee:"12:55 PM CT", group:"Jason Day" },
-  { name:"Ludvig Aberg",       owner:"Kaleb",  score:"E",  pos:24,  posD:"T24", birdies:9,  cut:false, tee:"11:16 AM CT", group:"Scottie Scheffler" },
-  { name:"Xander Schauffele",  owner:"Markus", score:"-2", pos:16,  posD:"T16", birdies:8,  cut:false, tee:"12:11 PM CT", group:"Jake Knapp" },
-  { name:"Bryson DeChambeau",  owner:"Markus", score:"+6", pos:60,  posD:"T60", birdies:6,  cut:true,  tee:"MISSED CUT",  group:"" },
-  { name:"Robert MacIntyre",   owner:"Markus", score:"+7", pos:64,  posD:"T64", birdies:6,  cut:true,  tee:"MISSED CUT",  group:"" },
-  { name:"Tommy Fleetwood",    owner:"Jacob",  score:"-5", pos:4,   posD:"T4",  birdies:9,  cut:false, tee:"1:28 PM CT",  group:"Shane Lowry" },
-  { name:"Matt Fitzpatrick",   owner:"Jacob",  score:"-1", pos:20,  posD:"T20", birdies:6,  cut:false, tee:"11:49 AM CT", group:"Nick Taylor" },
-  { name:"Jon Rahm",           owner:"Jacob",  score:"+4", pos:47,  posD:"T47", birdies:3,  cut:false, tee:"8:53 AM CT",  group:"Si Woo Kim" },
+  { name:"Scottie Scheffler",  owner:"Kaleb",  score:"-7",  pos:7,   posD:"T7",  birdies:12, cut:false },
+  { name:"Cameron Young",      owner:"Kaleb",  score:"-11", pos:1,   posD:"T1",  birdies:17, cut:false },
+  { name:"Ludvig Aberg",       owner:"Kaleb",  score:"-3",  pos:21,  posD:"T21", birdies:16, cut:false },
+  { name:"Xander Schauffele",  owner:"Markus", score:"-4",  pos:15,  posD:"T15", birdies:12, cut:false },
+  { name:"Bryson DeChambeau",  owner:"Markus", score:"+6",  pos:60,  posD:"T60", birdies:6,  cut:true  },
+  { name:"Robert MacIntyre",   owner:"Markus", score:"+7",  pos:64,  posD:"T64", birdies:6,  cut:true  },
+  { name:"Tommy Fleetwood",    owner:"Jacob",  score:"-4",  pos:15,  posD:"T15", birdies:12, cut:false },
+  { name:"Matt Fitzpatrick",   owner:"Jacob",  score:"-3",  pos:21,  posD:"T21", birdies:12, cut:false },
+  { name:"Jon Rahm",           owner:"Jacob",  score:"+5",  pos:48,  posD:"T48", birdies:6,  cut:false },
 ];
 
 const OC = {
@@ -118,8 +119,8 @@ function ownerTag(o) { const c=OC[o]||{}; return `<span class="owner-tag" style=
 
 const teams = ["Kaleb","Markus","Jacob"].map(owner => {
   const players = PLAYERS.filter(p=>p.owner===owner);
-  const totalPos = players.reduce((s,p)=>s+p.pos, 0);
-  const totalBirdies = players.reduce((s,p)=>s+p.birdies, 0);
+  const totalPos = players.reduce((s,p)=>s+p.pos,0);
+  const totalBirdies = players.reduce((s,p)=>s+p.birdies,0);
   return { owner, players, totalPos, totalBirdies };
 });
 
@@ -145,7 +146,7 @@ orderedTeams.forEach(team => {
       <div class="player-line-stats">
         <span class="bird">🐦${p.birdies}</span>
         ${p.cut
-          ? `<span class="cut-tag">MC</span><span class="${sc(p.score)}" style="font-size:0.6rem">${p.posD}</span>`
+          ? `<span class="cut-tag">MC</span><span style="font-size:0.6rem;color:var(--muted)">${p.posD}</span>`
           : `<span class="${sc(p.score)}">${p.score}(${p.posD})</span>`}
       </div>
     </div>`).join("")}
@@ -158,7 +159,8 @@ const bl=[...teams].sort((a,b)=>b.totalBirdies-a.totalBirdies)[0];
 document.getElementById("summary").innerHTML=
   `🥇 Placing leader: <span style="color:var(--gold)">${orderedTeams[0].owner}</span> (${orderedTeams[0].totalPos} pts)<br>
    🐦 Birdie leader: <span style="color:#7dd87d">${bl.owner}</span> (${bl.totalBirdies} holes)<br>
-   ✂️ Missed cut: DeChambeau (T60) &amp; MacIntyre (T64) — positions locked`;
+   ✂️ Missed cut: DeChambeau (T60) &amp; MacIntyre (T64) — positions locked<br>
+   🏌️ Young co-leads at -11 heading into Sunday!`;
 
 // Player table
 const tbody=document.getElementById("playerTable");
@@ -173,31 +175,6 @@ const tbody=document.getElementById("playerTable");
     <td>${ownerTag(p.owner)}</td>
   `;
   tbody.appendChild(tr);
-});
-
-// Tee times
-function toMins(t){
-  if(t==="MISSED CUT") return 9999;
-  const [time,period]=t.split(" "); let [h,m]=time.split(":").map(Number);
-  if(period==="PM"&&h!==12)h+=12; if(period==="AM"&&h===12)h=0; return h*60+m;
-}
-const teeContainer=document.getElementById("teeTimes");
-[...PLAYERS].sort((a,b)=>toMins(a.tee)-toMins(b.tee)).forEach(p=>{
-  const o=OC[p.owner]||{};
-  const row=document.createElement("div");
-  row.className="tee-row"+(p.cut?" missed-cut":"");
-  row.innerHTML=`
-    <div><div class="tee-time-val">${p.cut?"MISSED CUT":p.tee}</div></div>
-    <div style="flex:1">
-      <div class="tee-name">${p.name}</div>
-      <div class="tee-group">${p.group?"w/ "+p.group:""}</div>
-    </div>
-    <div class="tee-right">
-      <span class="owner-tag" style="background:${o.bg};color:${o.color};border:1px solid ${o.border}">${p.owner}</span>
-      <div style="font-size:0.75rem;font-weight:700;font-family:'IBM Plex Mono',monospace;margin-top:0.2rem" class="${sc(p.score)}">${p.score} (${p.posD})</div>
-    </div>
-  `;
-  teeContainer.appendChild(row);
 });
 
 function showTab(name,btn) {
