@@ -7,75 +7,59 @@
 <title>Masters Pool 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --green: #1a3a2a;
-    --gold: #c9a84c;
-    --cream: #f5f0e8;
-    --muted: #8a7a5a;
-    --border: rgba(201,168,76,0.15);
-    --border-lead: rgba(201,168,76,0.55);
-  }
+  :root { --green:#1a3a2a; --gold:#c9a84c; --cream:#f5f0e8; --muted:#8a7a5a; --border:rgba(201,168,76,0.15); --border-lead:rgba(201,168,76,0.55); }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--green); color:var(--cream); font-family:'IBM Plex Mono',monospace; min-height:100vh; background-image:radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.05) 0%, transparent 60%); }
-
-header { text-align:center; padding:1.75rem 1rem 1.25rem; border-bottom:1px solid rgba(201,168,76,0.3); }
-.title { font-family:‘Playfair Display’,serif; font-size:clamp(1.6rem,5vw,2.8rem); font-weight:900; color:var(–gold); letter-spacing:0.05em; }
-.subtitle { font-size:0.65rem; letter-spacing:0.3em; color:var(–muted); margin-top:0.3rem; text-transform:uppercase; }
-.badge { display:inline-flex; align-items:center; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.2); padding:0.2rem 0.75rem; margin-top:0.5rem; font-size:0.6rem; color:var(–gold); letter-spacing:0.1em; }
-
-.tab-bar { display:flex; border-bottom:1px solid rgba(201,168,76,0.2); background:rgba(0,0,0,0.2); }
-.tab-btn { flex:1; padding:0.75rem 0.5rem; font-family:‘IBM Plex Mono’,monospace; font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; cursor:pointer; border:none; background:transparent; color:var(–muted); border-bottom:2px solid transparent; transition:all 0.2s; }
-.tab-btn.active { color:var(–gold); border-bottom-color:var(–gold); background:rgba(201,168,76,0.05); }
-
-.tab-content { display:none; max-width:900px; margin:0 auto; padding:1.5rem 1rem; }
-.tab-content.active { display:block; }
-
-.section-label { font-size:0.6rem; letter-spacing:0.3em; color:var(–gold); text-transform:uppercase; margin-bottom:1rem; display:flex; align-items:center; gap:0.75rem; }
-.section-label::after { content:’’; flex:1; height:1px; background:rgba(201,168,76,0.2); }
-
-.team-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; margin-bottom:1.5rem; }
-.team-card { background:rgba(255,255,255,0.04); border:1px solid var(–border); padding:1.25rem; position:relative; }
-.team-card.lead { background:rgba(201,168,76,0.07); border-color:var(–border-lead); }
-.team-badge { position:absolute; top:-1px; right:-1px; background:rgba(201,168,76,0.2); color:var(–gold); font-size:0.55rem; font-weight:700; padding:0.2rem 0.6rem; letter-spacing:0.1em; }
-.team-card.lead .team-badge { background:var(–gold); color:var(–green); }
-.team-name { font-family:‘Playfair Display’,serif; font-size:1.25rem; color:var(–cream); margin-bottom:0.75rem; }
-.score-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem; }
-.score-label { font-size:0.55rem; letter-spacing:0.1em; color:var(–muted); text-transform:uppercase; }
-.score-big { font-size:1.25rem; font-weight:700; color:var(–gold); }
-.score-big.grn { color:#7dd87d; }
-.score-rank { font-size:0.6rem; color:var(–muted); margin-left:3px; }
-.divider { height:1px; background:rgba(201,168,76,0.1); margin:0.75rem 0; }
-.player-line { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.3rem; font-size:0.68rem; }
-.player-line-name { color:var(–cream); }
-.player-line-stats { display:flex; gap:0.5rem; }
-.bird { color:#7dd87d; }
-.under { color:#7dd87d; } .over { color:#ff8080; } .even { color:var(–cream); }
-
-.summary-box { padding:0.9rem; background:rgba(201,168,76,0.05); border:1px solid rgba(201,168,76,0.1); font-size:0.6rem; color:var(–muted); line-height:1.9; }
-.summary-title { color:var(–gold); margin-bottom:0.3rem; letter-spacing:0.1em; font-size:0.62rem; }
-
-.player-table { width:100%; border-collapse:collapse; font-size:0.7rem; }
-.player-table th { font-size:0.55rem; letter-spacing:0.15em; color:var(–muted); text-transform:uppercase; padding:0.5rem 0.6rem; text-align:left; border-bottom:1px solid rgba(201,168,76,0.15); }
-.player-table td { padding:0.55rem 0.6rem; border-bottom:1px solid rgba(255,255,255,0.04); color:var(–cream); }
-.owner-tag { font-size:0.52rem; padding:0.1rem 0.35rem; border-radius:2px; font-weight:700; }
-
-.tee-rows { display:flex; flex-direction:column; gap:0.5rem; }
-.tee-row { background:rgba(255,255,255,0.04); border:1px solid rgba(201,168,76,0.12); padding:0.75rem 1rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
-.tee-time-val { font-size:0.85rem; font-weight:700; color:var(–gold); min-width:7rem; }
-.tee-name { font-size:0.78rem; color:var(–cream); }
-.tee-group { font-size:0.58rem; color:var(–muted); margin-top:0.15rem; }
-.tee-right { margin-left:auto; text-align:right; }
-
-@media(max-width:480px) { .team-grid { grid-template-columns:1fr; } }
+  header { text-align:center; padding:1.75rem 1rem 1.25rem; border-bottom:1px solid rgba(201,168,76,0.3); }
+  .title { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,5vw,2.8rem); font-weight:900; color:var(--gold); letter-spacing:0.05em; }
+  .subtitle { font-size:0.65rem; letter-spacing:0.3em; color:var(--muted); margin-top:0.3rem; text-transform:uppercase; }
+  .badge { display:inline-flex; align-items:center; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.2); padding:0.2rem 0.75rem; margin-top:0.5rem; font-size:0.6rem; color:var(--gold); letter-spacing:0.1em; }
+  .tab-bar { display:flex; border-bottom:1px solid rgba(201,168,76,0.2); background:rgba(0,0,0,0.2); }
+  .tab-btn { flex:1; padding:0.75rem 0.5rem; font-family:'IBM Plex Mono',monospace; font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; cursor:pointer; border:none; background:transparent; color:var(--muted); border-bottom:2px solid transparent; transition:all 0.2s; }
+  .tab-btn.active { color:var(--gold); border-bottom-color:var(--gold); background:rgba(201,168,76,0.05); }
+  .tab-content { display:none; max-width:900px; margin:0 auto; padding:1.5rem 1rem; }
+  .tab-content.active { display:block; }
+  .section-label { font-size:0.6rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:1rem; display:flex; align-items:center; gap:0.75rem; }
+  .section-label::after { content:''; flex:1; height:1px; background:rgba(201,168,76,0.2); }
+  .team-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; margin-bottom:1.5rem; }
+  .team-card { background:rgba(255,255,255,0.04); border:1px solid var(--border); padding:1.25rem; position:relative; }
+  .team-card.lead { background:rgba(201,168,76,0.07); border-color:var(--border-lead); }
+  .team-badge { position:absolute; top:-1px; right:-1px; background:rgba(201,168,76,0.2); color:var(--gold); font-size:0.55rem; font-weight:700; padding:0.2rem 0.6rem; letter-spacing:0.1em; }
+  .team-card.lead .team-badge { background:var(--gold); color:var(--green); }
+  .team-name { font-family:'Playfair Display',serif; font-size:1.25rem; color:var(--cream); margin-bottom:0.75rem; }
+  .score-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem; }
+  .score-label { font-size:0.55rem; letter-spacing:0.1em; color:var(--muted); text-transform:uppercase; }
+  .score-big { font-size:1.25rem; font-weight:700; color:var(--gold); }
+  .score-big.grn { color:#7dd87d; }
+  .score-rank { font-size:0.6rem; color:var(--muted); margin-left:3px; }
+  .divider { height:1px; background:rgba(201,168,76,0.1); margin:0.75rem 0; }
+  .player-line { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.3rem; font-size:0.68rem; }
+  .player-line-name { color:var(--cream); }
+  .player-line-stats { display:flex; gap:0.5rem; align-items:center; }
+  .bird { color:#7dd87d; }
+  .under { color:#7dd87d; } .over { color:#ff8080; } .even { color:var(--cream); }
+  .cut-tag { font-size:0.5rem; background:rgba(139,32,32,0.4); color:#ff9999; padding:0.1rem 0.3rem; border:1px solid rgba(139,32,32,0.5); }
+  .summary-box { padding:0.9rem; background:rgba(201,168,76,0.05); border:1px solid rgba(201,168,76,0.1); font-size:0.6rem; color:var(--muted); line-height:1.9; }
+  .summary-title { color:var(--gold); margin-bottom:0.3rem; letter-spacing:0.1em; font-size:0.62rem; }
+  .player-table { width:100%; border-collapse:collapse; font-size:0.7rem; }
+  .player-table th { font-size:0.55rem; letter-spacing:0.15em; color:var(--muted); text-transform:uppercase; padding:0.5rem 0.6rem; text-align:left; border-bottom:1px solid rgba(201,168,76,0.15); }
+  .player-table td { padding:0.55rem 0.6rem; border-bottom:1px solid rgba(255,255,255,0.04); color:var(--cream); }
+  .owner-tag { font-size:0.52rem; padding:0.1rem 0.35rem; border-radius:2px; font-weight:700; }
+  .tee-rows { display:flex; flex-direction:column; gap:0.5rem; }
+  .tee-row { background:rgba(255,255,255,0.04); border:1px solid rgba(201,168,76,0.12); padding:0.75rem 1rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
+  .tee-row.missed-cut { opacity:0.4; border-color:rgba(139,32,32,0.3); background:rgba(139,32,32,0.05); }
+  .tee-time-val { font-size:0.85rem; font-weight:700; color:var(--gold); min-width:7.5rem; }
+  .tee-name { font-size:0.78rem; color:var(--cream); }
+  .tee-group { font-size:0.58rem; color:var(--muted); margin-top:0.15rem; }
+  .tee-right { margin-left:auto; text-align:right; }
+  @media(max-width:480px) { .team-grid { grid-template-columns:1fr; } }
 </style>
-
 </head>
 <body>
-
 <header>
   <div class="title">THE MASTERS POOL</div>
   <div class="subtitle">Augusta National &middot; 2026</div>
-  <div class="badge">Through Round 2 &middot; Cut Made</div>
+  <div class="badge">Through Round 2 &middot; R3 Saturday</div>
 </header>
 
 <div class="tab-bar">
@@ -97,9 +81,7 @@ header { text-align:center; padding:1.75rem 1rem 1.25rem; border-bottom:1px soli
   <div class="section-label">All Players — Through Round 2</div>
   <div style="overflow-x:auto">
     <table class="player-table">
-      <thead><tr>
-        <th>Pos</th><th>Player</th><th>Score</th><th>Birdies+</th><th>Team</th>
-      </tr></thead>
+      <thead><tr><th>Pos</th><th>Player</th><th>Score</th><th>Birdies+</th><th>Team</th></tr></thead>
       <tbody id="playerTable"></tbody>
     </table>
   </div>
@@ -107,23 +89,22 @@ header { text-align:center; padding:1.75rem 1rem 1.25rem; border-bottom:1px soli
 
 <div id="tab-teetimes" class="tab-content">
   <div class="section-label">Round 3 Tee Times — Saturday (CT)</div>
-  <div class="tee-rows" id="teeTimes">
-    <div style="color:var(--muted);font-size:0.7rem;padding:1rem 0">R3 tee times will be added once pairings are released.</div>
-  </div>
+  <div class="tee-rows" id="teeTimes"></div>
+  <div style="margin-top:1rem;font-size:0.58rem;color:var(--muted)">⚫ Faded entries missed the cut — positions locked</div>
 </div>
 
 <script>
-// R1 birdies + R2 birdies = total
+// pos = final position used for scoring. Cut players keep their R2 finishing position.
 const PLAYERS = [
-  { name:"Scottie Scheffler",  owner:"Kaleb",  score:"E",  pos:24, posD:"T24", birdies:4,  r1:"T6",  r1score:"-2" },
-  { name:"Cameron Young",      owner:"Kaleb",  score:"-4", pos:7,  posD:"T7",  birdies:9,  r1:"T33", r1score:"+1" },
-  { name:"Ludvig Aberg",       owner:"Kaleb",  score:"E",  pos:24, posD:"T24", birdies:9,  r1:"T40", r1score:"+2" },
-  { name:"Xander Schauffele",  owner:"Markus", score:"-2", pos:16, posD:"T16", birdies:8,  r1:"T6",  r1score:"-2" },
-  { name:"Bryson DeChambeau",  owner:"Markus", score:"+6", pos:60, posD:"T60", birdies:6,  r1:"T56", r1score:"+4" },
-  { name:"Robert MacIntyre",   owner:"Markus", score:"+7", pos:64, posD:"T64", birdies:6,  r1:"T82", r1score:"+8" },
-  { name:"Tommy Fleetwood",    owner:"Jacob",  score:"-5", pos:4,  posD:"T4",  birdies:9,  r1:"T10", r1score:"-1" },
-  { name:"Matt Fitzpatrick",   owner:"Jacob",  score:"-1", pos:20, posD:"T20", birdies:6,  r1:"T40", r1score:"+2" },
-  { name:"Jon Rahm",           owner:"Jacob",  score:"+4", pos:47, posD:"T47", birdies:3,  r1:"T73", r1score:"+6" },
+  { name:"Scottie Scheffler",  owner:"Kaleb",  score:"E",  pos:24,  posD:"T24", birdies:4,  cut:false, tee:"11:16 AM CT", group:"Ludvig Aberg" },
+  { name:"Cameron Young",      owner:"Kaleb",  score:"-4", pos:7,   posD:"T7",  birdies:9,  cut:false, tee:"12:55 PM CT", group:"Jason Day" },
+  { name:"Ludvig Aberg",       owner:"Kaleb",  score:"E",  pos:24,  posD:"T24", birdies:9,  cut:false, tee:"11:16 AM CT", group:"Scottie Scheffler" },
+  { name:"Xander Schauffele",  owner:"Markus", score:"-2", pos:16,  posD:"T16", birdies:8,  cut:false, tee:"12:11 PM CT", group:"Jake Knapp" },
+  { name:"Bryson DeChambeau",  owner:"Markus", score:"+6", pos:60,  posD:"T60", birdies:6,  cut:true,  tee:"MISSED CUT",  group:"" },
+  { name:"Robert MacIntyre",   owner:"Markus", score:"+7", pos:64,  posD:"T64", birdies:6,  cut:true,  tee:"MISSED CUT",  group:"" },
+  { name:"Tommy Fleetwood",    owner:"Jacob",  score:"-5", pos:4,   posD:"T4",  birdies:9,  cut:false, tee:"1:28 PM CT",  group:"Shane Lowry" },
+  { name:"Matt Fitzpatrick",   owner:"Jacob",  score:"-1", pos:20,  posD:"T20", birdies:6,  cut:false, tee:"11:49 AM CT", group:"Nick Taylor" },
+  { name:"Jon Rahm",           owner:"Jacob",  score:"+4", pos:47,  posD:"T47", birdies:3,  cut:false, tee:"8:53 AM CT",  group:"Si Woo Kim" },
 ];
 
 const OC = {
@@ -137,8 +118,11 @@ function ownerTag(o) { const c=OC[o]||{}; return `<span class="owner-tag" style=
 
 const teams = ["Kaleb","Markus","Jacob"].map(owner => {
   const players = PLAYERS.filter(p=>p.owner===owner);
-  return { owner, players, totalPos:players.reduce((s,p)=>s+p.pos,0), totalBirdies:players.reduce((s,p)=>s+p.birdies,0) };
+  const totalPos = players.reduce((s,p)=>s+p.pos, 0);
+  const totalBirdies = players.reduce((s,p)=>s+p.birdies, 0);
+  return { owner, players, totalPos, totalBirdies };
 });
+
 function rankBy(arr,key,asc){ const s=[...arr].sort((a,b)=>asc?a[key]-b[key]:b[key]-a[key]); const r={}; s.forEach((t,i)=>r[t.owner]=i+1); return r; }
 const posRanks    = rankBy(teams,"totalPos",true);
 const birdieRanks = rankBy(teams,"totalBirdies",false);
@@ -156,7 +140,15 @@ orderedTeams.forEach(team => {
     <div class="score-row"><span class="score-label">Placing Score</span><span class="score-big">${team.totalPos}<span class="score-rank">#${pr}</span></span></div>
     <div class="score-row"><span class="score-label">Birdies or Better</span><span class="score-big grn">${team.totalBirdies}<span class="score-rank">#${br}</span></span></div>
     <div class="divider"></div>
-    ${team.players.map(p=>`<div class="player-line"><span class="player-line-name">${p.name}</span><div class="player-line-stats"><span class="bird">🐦${p.birdies}</span><span class="${sc(p.score)}">${p.score}(${p.posD})</span></div></div>`).join("")}
+    ${team.players.map(p=>`<div class="player-line">
+      <span class="player-line-name" style="opacity:${p.cut?0.5:1}">${p.name}</span>
+      <div class="player-line-stats">
+        <span class="bird">🐦${p.birdies}</span>
+        ${p.cut
+          ? `<span class="cut-tag">MC</span><span class="${sc(p.score)}" style="font-size:0.6rem">${p.posD}</span>`
+          : `<span class="${sc(p.score)}">${p.score}(${p.posD})</span>`}
+      </div>
+    </div>`).join("")}
   `;
   grid.appendChild(card);
 });
@@ -165,14 +157,47 @@ orderedTeams.forEach(team => {
 const bl=[...teams].sort((a,b)=>b.totalBirdies-a.totalBirdies)[0];
 document.getElementById("summary").innerHTML=
   `🥇 Placing leader: <span style="color:var(--gold)">${orderedTeams[0].owner}</span> (${orderedTeams[0].totalPos} pts)<br>
-   🐦 Birdie leader: <span style="color:#7dd87d">${bl.owner}</span> (${bl.totalBirdies} holes)`;
+   🐦 Birdie leader: <span style="color:#7dd87d">${bl.owner}</span> (${bl.totalBirdies} holes)<br>
+   ✂️ Missed cut: DeChambeau (T60) &amp; MacIntyre (T64) — positions locked`;
 
 // Player table
 const tbody=document.getElementById("playerTable");
 [...PLAYERS].sort((a,b)=>a.pos-b.pos).forEach(p=>{
   const tr=document.createElement("tr");
-  tr.innerHTML=`<td>${p.posD}</td><td>${p.name}</td><td class="${sc(p.score)}">${p.score}</td><td style="color:#7dd87d">${p.birdies}</td><td>${ownerTag(p.owner)}</td>`;
+  tr.style.opacity = p.cut ? "0.5" : "1";
+  tr.innerHTML=`
+    <td>${p.cut?`<span class="cut-tag">MC</span> <span style="font-size:0.65rem;color:var(--muted)">${p.posD}</span>`:p.posD}</td>
+    <td>${p.name}</td>
+    <td class="${sc(p.score)}">${p.score}</td>
+    <td style="color:#7dd87d">${p.birdies}</td>
+    <td>${ownerTag(p.owner)}</td>
+  `;
   tbody.appendChild(tr);
+});
+
+// Tee times
+function toMins(t){
+  if(t==="MISSED CUT") return 9999;
+  const [time,period]=t.split(" "); let [h,m]=time.split(":").map(Number);
+  if(period==="PM"&&h!==12)h+=12; if(period==="AM"&&h===12)h=0; return h*60+m;
+}
+const teeContainer=document.getElementById("teeTimes");
+[...PLAYERS].sort((a,b)=>toMins(a.tee)-toMins(b.tee)).forEach(p=>{
+  const o=OC[p.owner]||{};
+  const row=document.createElement("div");
+  row.className="tee-row"+(p.cut?" missed-cut":"");
+  row.innerHTML=`
+    <div><div class="tee-time-val">${p.cut?"MISSED CUT":p.tee}</div></div>
+    <div style="flex:1">
+      <div class="tee-name">${p.name}</div>
+      <div class="tee-group">${p.group?"w/ "+p.group:""}</div>
+    </div>
+    <div class="tee-right">
+      <span class="owner-tag" style="background:${o.bg};color:${o.color};border:1px solid ${o.border}">${p.owner}</span>
+      <div style="font-size:0.75rem;font-weight:700;font-family:'IBM Plex Mono',monospace;margin-top:0.2rem" class="${sc(p.score)}">${p.score} (${p.posD})</div>
+    </div>
+  `;
+  teeContainer.appendChild(row);
 });
 
 function showTab(name,btn) {
